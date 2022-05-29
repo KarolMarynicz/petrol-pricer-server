@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using petrol_pricer_server.Dtos;
-using petrol_pricer_server.Models;
+﻿using petrol_pricer_server.Models;
 
 namespace petrol_pricer_server.Services
 {

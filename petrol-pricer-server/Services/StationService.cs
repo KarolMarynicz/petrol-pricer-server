@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using petrol_pricer_server.Database;
-using petrol_pricer_server.Dtos;
 using petrol_pricer_server.Models;
 
 namespace petrol_pricer_server.Services
@@ -17,14 +16,19 @@ namespace petrol_pricer_server.Services
 
         public Task<Station> GetByIdAsync(int stationId)
         {
-            ValueTask<Station> stationTask = this._databaseContext.Stations.FindAsync(stationId);
+            Task<Station> stationTask = this._databaseContext.Stations
+                .Include(station => station.Coords)
+                .Include(station => station.Prices)
+                .SingleAsync(station => station.Id == stationId);
 
-            return stationTask.AsTask();
+            return stationTask;
         }
 
         public Task<IEnumerable<Station>> GetAllAsync()
         {
-            IEnumerable<Station> stations = this._databaseContext.Stations.AsEnumerable();
+            IEnumerable<Station> stations = this._databaseContext.Stations
+                .Include(station => station.Coords)
+                .Include(station => station.Prices);
            
             return Task.FromResult(stations);
         }

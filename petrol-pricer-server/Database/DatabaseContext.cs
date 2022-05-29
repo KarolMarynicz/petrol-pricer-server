@@ -10,7 +10,10 @@ namespace petrol_pricer_server.Database
         public DbSet<Coords> Coords { get; set; }
 
         #pragma warning disable CS8618
-        public DatabaseContext(DbContextOptions contextOptions) : base(contextOptions) { }
+        public DatabaseContext(DbContextOptions contextOptions) : base(contextOptions) 
+        {
+            
+        }
         #pragma warning restore CS8618
     }
 }
